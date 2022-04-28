@@ -16,7 +16,15 @@ const Review = new Schema(
       type: Date,
       default: Date.now,
       get: timestamp => dateFormat(timestamp)
-    }
+    },
+    long: {
+      type: Number,
+      required: true,
+    },
+    lat: {
+      type: Number,
+      required: true,
+    },
   },
   {
     toJSON: {
