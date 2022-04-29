@@ -1,5 +1,5 @@
-const { AuthenticationError } = require('apollo-server-express');
 const { User, Review } = require('../models');
+const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -45,15 +45,17 @@ const resolvers = {
             return { token, user };
         },
 
-        addReview: async (parent, { reviewBody }, context) => {
+        addReview: async (parent, args, context) => {
             if (context.user) {
-                const updatedUser = await User.findByIdAndUpdate(
+							const review = await Review.create({ ...args, username: context.user.username });
+
+                 await User.findByIdAndUpdate(
                     { _id: context.user._id },
-                    { $push: { addReview: reviewBody } },
-                    { new: true, runValidators: true }
+                    { $push: { review: review._id } },
+                    { new: true }
                 );
 
-                return updatedUser;
+                return review;
             }
 
             throw new AuthenticationError('There was a request error...');
