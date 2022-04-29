@@ -23,15 +23,15 @@ type Location {
 
 type Query {
 	me: User
-	users: [User]
-	user(username: String!): User
-	
+	reviews: [Review]
+	review(_id: ID!): Review
 }
 
 type Mutation {
 	login(email: String!, password: String!): Auth
 	addUser(username: String!, email: String!, password: String!): Auth
 	addReview(reviewBody: String!): Review
+	removeReview(_id: ID!): Review
 }
 
 type Auth {

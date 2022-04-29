@@ -11,12 +11,12 @@ const resolvers = {
             }
         },
 
-        users: async () => {
-            return await User.find().select('-__v -password').populate('review');
+        reviews: async () => {
+            return await Review.find().select('-__v').populate('location');
         },
 
-        user: async (parent, { username }) => {
-            return await User.findOne({ username }).select('-__v -password').populate('review');
+        review: async (parent, { _id }) => {
+            return await Review.findOne({ _id }).select('-__v').populate('location');
         }
     },
 
@@ -59,11 +59,11 @@ const resolvers = {
             throw new AuthenticationError('There was a request error...');
         },
 
-        removeReview: async (parent, { reviewId }, context) => {
+        removeReview: async (parent, { _id }, context) => {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
                     { _id: context.user._id },
-                    { $pull: { addReview: { reviewId: reviewId } } },
+                    { $pull: { addReview: { reviewId: _id } } },
                     { new: true }
                 );
 
