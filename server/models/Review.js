@@ -1,7 +1,8 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
+const locationSchema = require('./Location');
 const dateFormat = require('../utils/dateFormat');
 
-const Review = new Schema(
+const reviewSchema = new Schema(
   {
     reviewBody: {
       type: String,
@@ -17,14 +18,7 @@ const Review = new Schema(
       default: Date.now,
       get: timestamp => dateFormat(timestamp)
     },
-    long: {
-      type: Number,
-      required: true,
-    },
-    lat: {
-      type: Number,
-      required: true,
-    },
+		location: [locationSchema]
   },
   {
     toJSON: {
@@ -32,5 +26,7 @@ const Review = new Schema(
     }
   }
 );
+
+const Review = model('Review', reviewSchema);
 
 module.exports = Review;
