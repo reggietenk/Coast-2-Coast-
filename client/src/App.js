@@ -2,13 +2,13 @@ import './App.css';
 import * as React from 'react';
 import Map from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 
 
 function App() {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <h1>Hello</h1>
     <Map
       initialViewState={{

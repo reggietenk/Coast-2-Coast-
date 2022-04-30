@@ -33,6 +33,7 @@ type Mutation {
 	login(email: String!, password: String!): Auth
 	addUser(username: String!, email: String!, password: String!): Auth
 	addReview(reviewBody: String!): Review
+	addLocation(reviewId: ID!, lat: Int!, lon: Int!): Review
 	removeReview(_id: ID!): Review
 }
 
