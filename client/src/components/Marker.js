@@ -1,14 +1,30 @@
-import React from 'react';
+// markers.js
+import React, { useRef, useEffect } from "react"
+import mapboxgl from "mapbox-gl"
 
-// Create a new marker.
-const Marker = new mapboxgl.Marker()
-.setLngLat([30.5, 50.5])
-.addTo(map);
+const Marker = ({ map, place }) => {
+  const markerRef = useRef()
 
+  useEffect(() => {
+    const marker = new mapboxgl.Marker(markerRef)
+      .setLngLat([place.longitude, place.latitude])
+      .addTo(map)
 
-// Store the marker's longitude and latitude coordinates in a variable
-const lngLat = Marker.getLngLat();
-// Print the marker's longitude and latitude values in the console
-console.log(`Longitude: ${lngLat.lng}, Latitude: ${lngLat.lat}`);
+    return () => marker.remove()
+  })
 
-export default Marker
+  return <div ref={markerRef} />
+}
+
+const Markers = ({ map, places }) => {
+  return (
+    <>
+      {places &&
+        places.map(place => (
+          <Marker key={place.name} map={map} place={place} />
+        ))}
+    </>
+  )
+}
+
+export default Markers

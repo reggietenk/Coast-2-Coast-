@@ -94,7 +94,6 @@ const resolvers = {
                 await User.findOneAndUpdate(
                     { _id: context.user._id },
                     { $pull: { review: review._id } },
-                    { new: true }
                 );
 
                 return review;
