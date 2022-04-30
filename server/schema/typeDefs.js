@@ -23,6 +23,8 @@ type Location {
 
 type Query {
 	me: User
+	users: [User]
+	user(username: String!): User
 	reviews: [Review]
 	review(_id: ID!): Review
 }
