@@ -9,15 +9,15 @@ const reviewSchema = new Schema(
       required: true,
       maxlength: 280
     },
-    username: {
-      type: String,
-      required: true
-    },
     createdAt: {
-      type: Date,
+			type: Date,
       default: Date.now,
       get: timestamp => dateFormat(timestamp)
     },
+		username: {
+			type: String,
+			required: true
+		},
 		location: [locationSchema]
   },
   {

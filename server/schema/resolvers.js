@@ -1,5 +1,5 @@
-const { AuthenticationError } = require('apollo-server-express');
 const { User, Review } = require('../models');
+const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -11,13 +11,25 @@ const resolvers = {
             }
         },
 
-        reviews: async () => {
-            return await Review.find().select('-__v').populate('location');
-        },
+				users: async () => {
+					return User.find()
+						.select('-__v -password')
+						.populate('review');
+				},
 
-        review: async (parent, { _id }) => {
-            return await Review.findOne({ _id }).select('-__v').populate('location');
-        }
+				user: async (parent, { username }) => {
+					return User.findOne({ username })
+						.select('-__v -password')
+						.populate('review');
+				},
+
+				reviews: async () => {
+					return Review.find().select('-__v').populate('location');
+				},
+
+				review: async (parent, { _id }) => {
+					return Review.findOne({ _id }).select('-__v').populate('location');;
+				}
     },
 
     Mutation: {
@@ -45,29 +57,33 @@ const resolvers = {
             return { token, user };
         },
 
-        addReview: async (parent, { reviewBody }, context) => {
+        addReview: async (parent, args, context) => {
             if (context.user) {
-                const updatedUser = await User.findByIdAndUpdate(
+							const review = await Review.create({ ...args, username: context.user.username });
+
+                await User.findByIdAndUpdate(
                     { _id: context.user._id },
-                    { $push: { addReview: reviewBody } },
-                    { new: true, runValidators: true }
+                    { $push: { review: review._id } },
+                    { new: true }
                 );
 
-                return updatedUser;
+                return review;
             }
 
             throw new AuthenticationError('There was a request error...');
         },
 
-        removeReview: async (parent, { _id }, context) => {
+        removeReview: async (parent, args, context) => {
             if (context.user) {
-                const updatedUser = await User.findOneAndUpdate(
+							const review = await Review.remove({ ...args, username: context.user.username });
+
+                await User.findOneAndUpdate(
                     { _id: context.user._id },
-                    { $pull: { addReview: { reviewId: _id } } },
+                    { $pull: { review: review._id } },
                     { new: true }
                 );
 
-                return updatedUser;
+                return review;
             }
             throw new AuthenticationError('You need to be logged in!');
         }
