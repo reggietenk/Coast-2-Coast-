@@ -4,12 +4,17 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        me: async (parent, args, context) => {
-            if (context.user) {
-                const userData = await User.findOne({ _id: context.user._id });
-                return userData;
-            }
-        },
+				me: async (parent, args, context) => {
+					if (context.user) {
+						const userData = await User.findOne({ _id: context.user._id })
+							.select('-__v -password')
+							.populate('review');
+				
+						return userData;
+					}
+				
+					throw new AuthenticationError('Not logged in');
+				},
 
 				users: async () => {
 					return User.find()
@@ -89,7 +94,7 @@ const resolvers = {
 
         removeReview: async (parent, args, context) => {
             if (context.user) {
-							const review = await Review.remove({ ...args, username: context.user.username });
+							const review = await Review.deleteOne({ ...args, username: context.user.username });
 
                 await User.findOneAndUpdate(
                     { _id: context.user._id },
