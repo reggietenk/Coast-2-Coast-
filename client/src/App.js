@@ -1,6 +1,6 @@
 // import './App.css';
 import * as React from 'react';
-import MapView from './components/Map';
+import Map from './components/Map';
 import 'mapbox-gl/dist/mapbox-gl.css';
 // import AppNavbar from './components/Navbar';
 // import { Nav } from 'react-bootstrap';
@@ -10,7 +10,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 function App() {
   return (
     <div>
-      <MapView />
+      <Map />
     </div>
   );
 }

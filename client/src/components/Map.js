@@ -1,92 +1,65 @@
-import React, { useRef, useEffect, useState } from "react"
-import mapboxgl from "mapbox-gl"
-import bbox from "@turf/bbox"
-import { multiPoint } from "@turf/helpers"
-import Markers from "./Marker"
+
+
+import React, { useRef, useEffect, useState } from 'react';
+import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import { Marker } from 'mapbox-gl';
 import "mapbox-gl/dist/mapbox-gl.css"
+ 
+mapboxgl.accessToken = 'pk.eyJ1IjoicmVnZ2lldGVuayIsImEiOiJjbDJndDUyeGMwNzZqM2RxaHIwMXg5N3N6In0.Ke7Mr42rWoQZajaWe55WlQ';
+ 
 
-const places = [
-    {
-      name: "Empire State Building",
-      longitude: -73.9856,
-      latitude: 40.7497,
-    },
-    {
-      name: "Birch Coffee",
-      longitude: -73.9864,
-      latitude: 40.7438,
-    },
-    {
-      name: "B&H",
-      longitude: -73.9961,
-      latitude: 40.753,
-    },
-  ]
+function Map() {
+  const mapContainer = useRef(null);
+  const map = useRef(null);
+  const [lng, setLng] = useState(-70.9);
+  const [lat, setLat] = useState(42.35);
+  const [zoom, setZoom] = useState(9);
 
-const MAPBOX_TOKEN = "pk.eyJ1IjoicmVnZ2lldGVuayIsImEiOiJjbDJndDUyeGMwNzZqM2RxaHIwMXg5N3N6In0.Ke7Mr42rWoQZajaWe55WlQ"
-
-const mapContainerStyle = {
-  width: "100%",
-  height: "1200px",
-}
-
-const Map = () => {
-  const mapContainerRef = useRef(null)
-
-  const [map, setMap] = useState(null)
-
-  useEffect(() => {
-    const map = new mapboxgl.Map({
-      container: mapContainerRef.current,
-      accessToken: MAPBOX_TOKEN,
-      style: "mapbox://styles/mapbox/streets-v11",
-      // Empire State Building [lng, lat]
-      center: [-73.9856, 40.7497],
-      zoom: 40,
+  const Marker = ({ map, place }) => {
+    const markerRef = useRef()
+  
+    useEffect(() => {
+      const marker = new mapboxgl.Marker(markerRef)
+        .setLngLat([place.longitude, place.latitude])
+        .addTo(map)
+  
+      return () => marker.remove()
     })
-    map.addControl(new mapboxgl.NavigationControl(), "top-right")
+  
+    return <div ref={markerRef} />
 
-    setMap(map)
-
-    return () => map.remove()
-  }, [])
-
+  }
+   
   useEffect(() => {
-    if (!map) return
-
-    if (places.length !== 0) {
-      const coords = []
-      places.forEach(place => {
-        coords.push([place.longitude, place.latitude])
-      })
-      const feature = multiPoint(coords)
-      const box = bbox(feature)
-
-      map.fitBounds(
-        [
-          [box[0], box[1]],
-          [box[2], box[3]],
-        ],
-        {
-          padding: 20,
-          maxZoom: 8,
-          duration: 2000,
-        }
-      )
-    } else {
-      map.easeTo({
-        center: [-73.9856, 40.7497],
-        zoom: 10,
-        duration: 2000,
-      })
-    }
-  }, [map])
-
+  if (map.current) return; // initialize map only once
+  map.current = new mapboxgl.Map({
+  container: mapContainer.current,
+  style: 'mapbox://styles/mapbox/streets-v11',
+  center: [lng, lat],
+  zoom: zoom
+  });
+  });
+   
+  useEffect(() => {
+  if (!map.current) return; // wait for map to initialize
+  map.current.on('move', () => {
+  setLng(map.current.getCenter().lng.toFixed(4));
+  setLat(map.current.getCenter().lat.toFixed(4));
+  setZoom(map.current.getZoom().toFixed(2));
+  });
+  
+  });
+   
   return (
-    <div ref={mapContainerRef} style={mapContainerStyle}>
-      {places && map && <Markers map={map} places={places} />}
-    </div>
-  )
+  <div>
+  <div className="sidebar">
+  Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+  </div>
+  <div ref={mapContainer} className="map-container" />
+  </div>
+  );
+  
+  
 }
 
-export default Map
+  export default Map 
