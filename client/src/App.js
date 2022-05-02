@@ -1,42 +1,51 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import HomePage from './components/HomePage';
-import Map from './pages/Map';
-import Navbar from './components/Navbar';
-import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
-import MapView from './components/Map';
+import * as React from 'react'
+import Map from './components/Map';
 import 'mapbox-gl/dist/mapbox-gl.css';
+// import AppNavbar from './components/Navbar';
+// import { Nav } from 'react-bootstrap';
+// import 'mapbox-gl/dist/mapbox-gl.css';
+import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from "@apollo/client/link/context";
+import './index.css' 
+
+// import Home from './pages/HomePage'
+// import SignupForm from './components/SignupForm'
+
+
+
+const httpLink = createHttpLink({
+  uri: 'http://localhost:3001/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
 
 const client = new ApolloClient({
-  request: operation => {
-    const token = localStorage.getItem('id_token');
-
-    operation.setContext({
-      headers: {
-        authorization: token ? `Bearer ${token}` : ''
-      }
-    });
-  },
-  uri: '/graphql'
+  link: httpLink,
+  cache: new InMemoryCache(),
 });
+
 
 function App() {
   return (
     <ApolloProvider client={client}>
-    <Router>
-      <>
-        <MapView />
-        <Navbar />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route exact path='/saved' component={Map} />
-          <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-        </Switch>
-      </>
-    </Router>
+      <div className="">
+
+        <Map/>
+        {/* <AppNavbar /> */}
+        <div className="container">
+          {/* <AppNavbar /> */}
+        </div>
+        {/* <Footer /> */}
+      </div>
     </ApolloProvider>
   );
 }
-
-export default App;
+export default App

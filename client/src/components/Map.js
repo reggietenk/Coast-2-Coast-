@@ -2,64 +2,87 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import { Marker } from 'mapbox-gl';
+// import { Marker } from 'mapbox-gl';
 import "mapbox-gl/dist/mapbox-gl.css"
- 
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+
+
 mapboxgl.accessToken = 'pk.eyJ1IjoicmVnZ2lldGVuayIsImEiOiJjbDJndDUyeGMwNzZqM2RxaHIwMXg5N3N6In0.Ke7Mr42rWoQZajaWe55WlQ';
- 
 
-function Map() {
-  const mapContainer = useRef(null);
-  const map = useRef(null);
-  const [lng, setLng] = useState(-70.9);
-  const [lat, setLat] = useState(42.35);
-  const [zoom, setZoom] = useState(9);
+const Map = () => {
+  const mapContainerRef = useRef(null);
 
-  const Marker = ({ map, place }) => {
-    const markerRef = useRef()
-  
-    useEffect(() => {
-      const marker = new mapboxgl.Marker(markerRef)
-        .setLngLat([place.longitude, place.latitude])
-        .addTo(map)
-  
-      return () => marker.remove()
-    })
-  
-    return <div ref={markerRef} />
+  const [lng, setLng] = useState(5);
+  const [lat, setLat] = useState(34);
+  const [zoom, setZoom] = useState(1.5);
 
-  }
-   
+  // Initialize map when component mounts
   useEffect(() => {
-  if (map.current) return; // initialize map only once
-  map.current = new mapboxgl.Map({
-  container: mapContainer.current,
-  style: 'mapbox://styles/mapbox/streets-v11',
-  center: [lng, lat],
-  zoom: zoom
-  });
-  });
-   
-  useEffect(() => {
-  if (!map.current) return; // wait for map to initialize
-  map.current.on('move', () => {
-  setLng(map.current.getCenter().lng.toFixed(4));
-  setLat(map.current.getCenter().lat.toFixed(4));
-  setZoom(map.current.getZoom().toFixed(2));
-  });
-  
-  });
-   
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [lng, lat],
+      zoom: zoom
+    });
+    map.addControl(
+      new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl
+      })
+      );
+
+    // Add navigation control (the +/- zoom buttons)
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+    map.on('move', () => {
+      setLng(map.getCenter().lng.toFixed(4));
+      setLat(map.getCenter().lat.toFixed(4));
+      setZoom(map.getZoom().toFixed(2));
+    });
+
+    // Clean up on unmount
+    return () => map.remove();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
-  <div>
-  <div className="sidebar">
-  Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-  </div>
-  <div ref={mapContainer} className="map-container" />
-  </div>
+    <div>
+      <div className='sidebar'>
+        <div>
+          Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+        </div>
+      </div>
+      <div className='map-container' ref={mapContainerRef} />
+    </div>
   );
-  
-  
-}
+};
 
-  export default Map 
+export default Map;
+
+// mapboxgl.accessToken = 'pk.eyJ1IjoicmVnZ2lldGVuayIsImEiOiJjbDJndDUyeGMwNzZqM2RxaHIwMXg5N3N6In0.Ke7Mr42rWoQZajaWe55WlQ';
+//       const Map = new mapboxgl.Map({
+//         container: 'mapContainer',
+//         style: 'mapbox://styles/examples/cjgiiz9ck002j2ss5zur1vjji',
+//         center: [-87.661557, 41.893748],
+//         zoom: 10.7
+//       });
+
+//       Map.on('click', (event) => {
+//         const features = Map.queryRenderedFeatures(event.point, {
+//           layers: ['chicago-parks']
+//         });
+//         if (!features.length) {
+//           return;
+//         }
+//         const feature = features[0];
+
+//         const popup = new mapboxgl.Popup({ offset: [0, -15] })
+//           .setLngLat(feature.geometry.coordinates)
+//           .setHTML(
+//             `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+//           )
+//           .addTo(Map);
+//       });
+
+// export default Map
