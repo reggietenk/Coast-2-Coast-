@@ -7,6 +7,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from "@apollo/client/link/context";
 import './index.css' 
+// import { Switch ,Route, Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // import Home from './pages/HomePage'
 // import SignupForm from './components/SignupForm'
@@ -36,15 +38,20 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className="">
+      {/* <Map/> */}
+        <Router>
+        <div className="map-container">
+        <Route>
+              <Route exact path="/" component={Map} />
+              {/* <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={Signup} />
+               
+      
 
-        <Map/>
-        {/* <AppNavbar /> */}
-        <div className="container">
-          {/* <AppNavbar /> */}
-        </div>
-        {/* <Footer /> */}
+              {/* <Route component={NoMatch} /> */}
+            </Route>
       </div>
+      </Router>
     </ApolloProvider>
   );
 }
