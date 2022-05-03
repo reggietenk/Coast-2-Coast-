@@ -23,11 +23,12 @@ const AppNavbar = () => {
               <Nav.Link as={Link} to='/'>
                 Search For State
               </Nav.Link>
-              {/* if user is logged in show saved State and logout */}
+              {/* if user is logged in show saved location and logout */}
               {Auth.loggedIn() ? (
                 <>
                   <Nav.Link as={Link} to='/saved'>
-                    See Your State
+                    See Your Locations
+                    
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                 </>
