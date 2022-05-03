@@ -28,6 +28,7 @@ const AppNavbar = () => {
                 <>
                   <Nav.Link as={Link} to='/saved'>
                     See Your Locations
+                    
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                 </>
