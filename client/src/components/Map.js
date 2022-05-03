@@ -17,12 +17,13 @@ const Map = () => {
   const [lng, setLng] = useState(5);
   const [lat, setLat] = useState(34);
   const [zoom, setZoom] = useState(1.5);
+  const [showPopup, setShowPopup] = React.useState(true)
 
   // Initialize map when component mounts
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: 'mapbox://styles/mapbox/satellite-v9',
       center: [lng, lat],
       zoom: zoom
     });
@@ -32,9 +33,32 @@ const Map = () => {
       mapboxgl: mapboxgl
       })
       );
+      
 
     // Add navigation control (the +/- zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+    {showPopup && (
+      <Popup longitude={-100} latitude={40}
+        anchor="bottom"
+        onClose={() => setShowPopup(false)}>
+        You are here
+      </Popup>)}
+
+    const marker = new mapboxgl.Marker({
+      draggable: true
+    })
+      .setLngLat([0, 0])
+      .addTo(map);
+    
+    function onDragEnd() {
+      const lngLat = marker.getLngLat();
+      mapContainerRef.style.display = "block";
+      mapContainerRef.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+    }
+    
+    marker.on("dragend", onDragEnd);
+    
 
     map.on('move', () => {
       setLng(map.getCenter().lng.toFixed(4));
@@ -42,9 +66,16 @@ const Map = () => {
       setZoom(map.getZoom().toFixed(2));
     });
 
+    const popup = new mapboxgl.Popup({ closeOnClick: false })
+.setLngLat([-96, 37.8])
+.setHTML('<h1>Hello World!</h1>')
+.addTo(map);
+
+
     // Clean up on unmount
     return () => map.remove();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
 
   return (
     <div>

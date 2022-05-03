@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // import Home from './pages/HomePage'
 // import SignupForm from './components/SignupForm'
+// import LoginForm from './components/LoginForm';
 
 
 
@@ -38,14 +39,14 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      {/* <Map/> */}
+      {/* <AppNavbar/> */}
         <Router>
         <div className="map-container">
         <Route>
               <Route exact path="/" component={Map} />
-              {/* <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-               
+              {/* <Route exact path="/login" component={LoginForm} /> 
+              <Route exact path="/signup" component={SignupForm} /> */}
+                
       
 
               {/* <Route component={NoMatch} /> */}
