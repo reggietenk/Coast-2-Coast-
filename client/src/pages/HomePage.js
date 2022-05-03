@@ -15,7 +15,7 @@
   
 //     return (
 //      <div>
-//          <h1 className=''>COAST2COAST</h1>
+//          <h4 className='sidebar'>COAST2COAST</h4>
 //      </div>
 //     )
 //   };
