@@ -9,11 +9,12 @@ import { setContext } from "@apollo/client/link/context";
 import './index.css' 
 // import { Switch ,Route, Router } from 'react-router-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Login from './pages/Login';
 
 // import Home from './pages/HomePage'
 // import Signup from './components/Signup'
 // import Login from './pages/Login';
-// import Signup from './pages/Signup';
+import Signup from './pages/Signup';
 // import NoMatch from './pages/NoMatch';
 
 
@@ -47,9 +48,9 @@ function App() {
 
         <Route>
               <Route exact path="/" component={Map} />
-              {/* <Route exact path="/login" component={Login} />
+              <Route exact path="/login" component={Login} /> 
 							<Route exact path="/signup" component={Signup} />
-							<Route component={NoMatch} /> */}
+							{/* <Route component={NoMatch} />   */}
               
             </Route>
       </>
