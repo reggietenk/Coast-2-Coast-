@@ -78,19 +78,19 @@ const resolvers = {
 					throw new AuthenticationError('There was a request error...');
 			},
 
-			// addLocation: async (parent, { reviewId, lat, lon }, context) => {
-			// 	if (context.user) {
-			// 		const updatedReview = await Review.findOneAndUpdate(
-			// 			{ _id: reviewId },
-			// 			{ $push: { location: { lat, lon, username: context.user.username } } },
-			// 			{ new: true, runValidators: true }
-			// 		);
+			addLocation: async (parent, { reviewId, lat, lon }, context) => {
+				if (context.user) {
+					const updatedReview = await Review.findOneAndUpdate(
+						{ _id: reviewId },
+						{ $push: { location: { lat, lon, username: context.user.username } } },
+						{ new: true, runValidators: true }
+					);
 			
-			// 		return updatedReview;
-			// 	}
+					return updatedReview;
+				}
 			
-			// 	throw new AuthenticationError('You need to be logged in!');
-			// },
+				throw new AuthenticationError('You need to be logged in!');
+			},
 
 			removeReview: async (parent, args, context) => {
 					if (context.user) {
