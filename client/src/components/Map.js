@@ -17,7 +17,6 @@ const Map = () => {
   const [lng, setLng] = useState(5);
   const [lat, setLat] = useState(34);
   const [zoom, setZoom] = useState(1.5);
-  const [showPopup, setShowPopup] = React.useState(true)
 
   // Initialize map when component mounts
   useEffect(() => {
@@ -37,13 +36,6 @@ const Map = () => {
 
     // Add navigation control (the +/- zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-
-    {showPopup && (
-      <Popup longitude={-100} latitude={40}
-        anchor="bottom"
-        onClose={() => setShowPopup(false)}>
-        You are here
-      </Popup>)}
 
     const marker = new mapboxgl.Marker({
       draggable: true
@@ -66,10 +58,6 @@ const Map = () => {
       setZoom(map.getZoom().toFixed(2));
     });
 
-    const popup = new mapboxgl.Popup({ closeOnClick: false })
-.setLngLat([-96, 37.8])
-.setHTML('<h1>Hello World!</h1>')
-.addTo(map);
 
 
     // Clean up on unmount
