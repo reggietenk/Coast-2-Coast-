@@ -38,73 +38,73 @@ const resolvers = {
     },
 
     Mutation: {
-        login: async (parent, { email, password }) => {
-            const user = await User.findOne({ email });
+			addUser: async (parent, args) => {
+				const user = await User.create(args);
+				const token = signToken(user);
+			
+				return { token, user };
+			},
+			
+			login: async (parent, { email, password }) => {
+				const user = await User.findOne({ email });
+			
+				if (!user) {
+					throw new AuthenticationError('Incorrect credentials');
+				}
+			
+				const correctPw = await user.isCorrectPassword(password);
+			
+				if (!correctPw) {
+					throw new AuthenticationError('Incorrect credentials');
+				}
+			
+				const token = signToken(user);
+				return { token, user };
+			},
 
-            if (!user) {
-                throw new AuthenticationError('Incorrect login information!');
-            }
+			addReview: async (parent, args, context) => {
+					if (context.user) {
+						const review = await Review.create({ ...args, username: context.user.username });
 
-            const correctPw = await user.isCorrectPassword(password);
+							await User.findByIdAndUpdate(
+									{ _id: context.user._id },
+									{ $push: { review: review._id } },
+									{ new: true }
+							);
 
-            if (!correctPw) {
-                throw new AuthenticationError('Incorrect login information!');
-            }
+							return review;
+					}
 
-            const token = signToken(user);
-            return { token, user };
-        },
+					throw new AuthenticationError('There was a request error...');
+			},
 
-        addUser: async (parent, args) => {
-            const user = await User.create(args);
-            const token = signToken(user);
+			// addLocation: async (parent, { reviewId, lat, lon }, context) => {
+			// 	if (context.user) {
+			// 		const updatedReview = await Review.findOneAndUpdate(
+			// 			{ _id: reviewId },
+			// 			{ $push: { location: { lat, lon, username: context.user.username } } },
+			// 			{ new: true, runValidators: true }
+			// 		);
+			
+			// 		return updatedReview;
+			// 	}
+			
+			// 	throw new AuthenticationError('You need to be logged in!');
+			// },
 
-            return { token, user };
-        },
+			removeReview: async (parent, args, context) => {
+					if (context.user) {
+						const review = await Review.deleteOne({ ...args, username: context.user.username });
 
-        addReview: async (parent, args, context) => {
-            if (context.user) {
-							const review = await Review.create({ ...args, username: context.user.username });
+							await User.findOneAndUpdate(
+									{ _id: context.user._id },
+									{ $pull: { review: review._id } },
+							);
 
-                await User.findByIdAndUpdate(
-                    { _id: context.user._id },
-                    { $push: { review: review._id } },
-                    { new: true }
-                );
-
-                return review;
-            }
-
-            throw new AuthenticationError('There was a request error...');
-        },
-
-				// addLocation: async (parent, { reviewId, lat, lon }, context) => {
-				// 	if (context.user) {
-				// 		const updatedReview = await Review.findOneAndUpdate(
-				// 			{ _id: reviewId },
-				// 			{ $push: { location: { lat, lon, username: context.user.username } } },
-				// 			{ new: true, runValidators: true }
-				// 		);
-				
-				// 		return updatedReview;
-				// 	}
-				
-				// 	throw new AuthenticationError('You need to be logged in!');
-				// },
-
-        removeReview: async (parent, args, context) => {
-            if (context.user) {
-							const review = await Review.deleteOne({ ...args, username: context.user.username });
-
-                await User.findOneAndUpdate(
-                    { _id: context.user._id },
-                    { $pull: { review: review._id } },
-                );
-
-                return review;
-            }
-            throw new AuthenticationError('You need to be logged in!');
-        }
+							return review;
+					}
+					throw new AuthenticationError('You need to be logged in!');
+			}
     }
 };
 

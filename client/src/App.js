@@ -5,10 +5,9 @@ import AppNavbar from './components/Navbar';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from "@apollo/client/link/context";
 import './index.css'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Home from './pages/HomePage';
 import NoMatch from './pages/NoMatch';
 
 
@@ -33,6 +32,7 @@ const client = new ApolloClient({
 });
 
 
+
 function App() {
   return (
     <ApolloProvider client={client}>
@@ -40,15 +40,14 @@ function App() {
 				<div className="flex-column justify-flex-start min-100-vh">
       		<AppNavbar />
 					<div className="container">
-						<Route>
-							<Route exact path="/" component={Home} />
-							<div className="map-container">
-								<Route exact path="/map" component={Map} />
-							</div>
+						<Switch>
 							<Route exact path="/login" component={Login} />
 							<Route exact path="/signup" component={Signup} />
+							<div className="map-container">
+								<Route exact path="/" component={Map} />
+							</div>
 							<Route component={NoMatch} />
-						</Route>
+						</Switch>
 					</div>
 
 				</div>
