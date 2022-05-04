@@ -2,11 +2,6 @@ import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import Auth from '../utils/auth';
 
-const logout = event => {
-  event.preventDefault();
-  Auth.logout();
-};
-
 const AppNavbar = () => {
 
   const logout = event => {

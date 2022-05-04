@@ -1,11 +1,11 @@
+import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from "@apollo/client/link/context";
 import * as React from 'react'
 import Map from './components/Map';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import AppNavbar from './components/Navbar';
 // import { Nav } from 'react-bootstrap';
 // import 'mapbox-gl/dist/mapbox-gl.css';
-import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
-import { setContext } from "@apollo/client/link/context";
 import './index.css' 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './pages/Login';
@@ -15,7 +15,7 @@ import NoMatch from './pages/NoMatch';
 
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  uri: '/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
