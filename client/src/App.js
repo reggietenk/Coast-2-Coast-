@@ -1,23 +1,20 @@
 import * as React from 'react'
-import Map from './components/Map';
+// import Map from './components/Map';
 import 'mapbox-gl/dist/mapbox-gl.css';
-// import AppNavbar from './components/Navbar';
-// import { Nav } from 'react-bootstrap';
-// import 'mapbox-gl/dist/mapbox-gl.css';
+import AppNavbar from './components/Navbar';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from "@apollo/client/link/context";
-import './index.css' 
-// import { Switch ,Route, Router } from 'react-router-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-
-// import Home from './pages/HomePage'
-// import SignupForm from './components/SignupForm'
-// import LoginForm from './components/LoginForm';
+import './index.css'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Home from './pages/HomePage';
+import NoMatch from './pages/NoMatch';
 
 
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  uri: '/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -31,7 +28,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -39,19 +36,21 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      {/* <AppNavbar/> */}
-        <Router>
-        <div className="map-container">
-        <Route>
-              <Route exact path="/" component={Map} />
-              {/* <Route exact path="/login" component={LoginForm} /> 
-              <Route exact path="/signup" component={SignupForm} /> */}
-                
-      
+			<Router>
+				<div className="flex-column justify-flex-start min-100-vh">
+      		<AppNavbar />
+					<div className="container">
+						<Routes>
+							<Route exact path="/" component={Home} />
+							<Route exact path="/login" component={Login} />
+							<Route exact path="/signup" component={Signup} />
+							<Route component={NoMatch} />
+						</Routes>
+					</div>
+        	{/* <div className="map-container">
 
-              {/* <Route component={NoMatch} /> */}
-            </Route>
-      </div>
+      	</div> */}
+				</div>
       </Router>
     </ApolloProvider>
   );

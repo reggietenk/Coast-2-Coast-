@@ -40,18 +40,18 @@ export const ADD_REVIEW = gql`
   }
 `;
 
-export const ADD_LOCATION = gql`
-  mutation addLocation(reviewId: ID!, lat: Int!, lon: Int!) {
-    addLocation(reviewId: $reviewId, lat: $lat, lon: $lon) {
-			_id
-			reviewBody
-			username
-			createdAt
-			location {
-				_id
-				lat
-				lon
-			}
-		}
-  }
-`;
+// export const ADD_LOCATION = gql`
+//   mutation addLocation(reviewId: ID!, lat: Int!, lon: Int!) {
+//     addLocation(reviewId: $reviewId, lat: $lat, lon: $lon) {
+// 			_id
+// 			reviewBody
+// 			username
+// 			createdAt
+// 			location {
+// 				_id
+// 				lat
+// 				lon
+// 			}
+// 		}
+//   }
+// `;
