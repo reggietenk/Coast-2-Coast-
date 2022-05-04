@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Map from './components/Map';
 import 'mapbox-gl/dist/mapbox-gl.css';
-// import AppNavbar from './components/Navbar';
+import AppNavbar from './components/Navbar';
 // import { Nav } from 'react-bootstrap';
 // import 'mapbox-gl/dist/mapbox-gl.css';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
@@ -11,8 +11,10 @@ import './index.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // import Home from './pages/HomePage'
-// import SignupForm from './components/SignupForm'
-// import LoginForm from './components/LoginForm';
+// import Signup from './components/Signup'
+// import Login from './pages/Login';
+// import Signup from './pages/Signup';
+// import NoMatch from './pages/NoMatch';
 
 
 
@@ -31,7 +33,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -39,19 +41,18 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      {/* <AppNavbar/> */}
         <Router>
-        <div className="map-container">
+          <>
+          <AppNavbar />
+
         <Route>
               <Route exact path="/" component={Map} />
-              {/* <Route exact path="/login" component={LoginForm} /> 
-              <Route exact path="/signup" component={SignupForm} /> */}
-                
-      
-
-              {/* <Route component={NoMatch} /> */}
+              {/* <Route exact path="/login" component={Login} />
+							<Route exact path="/signup" component={Signup} />
+							<Route component={NoMatch} /> */}
+              
             </Route>
-      </div>
+      </>
       </Router>
     </ApolloProvider>
   );
