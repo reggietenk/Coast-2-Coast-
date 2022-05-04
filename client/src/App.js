@@ -1,11 +1,11 @@
 import * as React from 'react'
-// import Map from './components/Map';
+import Map from './components/Map';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import AppNavbar from './components/Navbar';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from "@apollo/client/link/context";
 import './index.css'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Home from './pages/HomePage';
@@ -40,16 +40,17 @@ function App() {
 				<div className="flex-column justify-flex-start min-100-vh">
       		<AppNavbar />
 					<div className="container">
-						<Routes>
+						<Route>
 							<Route exact path="/" component={Home} />
+							<div className="map-container">
+								<Route exact path="/map" component={Map} />
+							</div>
 							<Route exact path="/login" component={Login} />
 							<Route exact path="/signup" component={Signup} />
 							<Route component={NoMatch} />
-						</Routes>
+						</Route>
 					</div>
-        	{/* <div className="map-container">
 
-      	</div> */}
 				</div>
       </Router>
     </ApolloProvider>
