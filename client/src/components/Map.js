@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 // import { Marker } from 'mapbox-gl';
 import "mapbox-gl/dist/mapbox-gl.css"
-// import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
@@ -57,6 +57,21 @@ const Map = () => {
       setLat(map.getCenter().lat.toFixed(4));
       setZoom(map.getZoom().toFixed(2));
     });
+
+    // // Create the popup and add it to the world map
+    // const popup = new mapboxgl.Popup()
+    //   .setLngLat(e.lngLat) // could also use the coordinates from a feature geometry if the source is in geojson format
+    //   .setDOMContent(containerRef.current)
+    //   .addTo(map)
+
+    // // Keep track of the current popup
+    // popupRef. current = popup
+
+    // // // Remove the tracked popup with the popup is closed
+    // // popup.on('close', () => {
+    // //   popupRef.current = undefined
+    // // })
+  
 
 
 

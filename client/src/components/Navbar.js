@@ -11,7 +11,7 @@ const AppNavbar = () => {
   // set modal display state
   return (
     <>
-    <Navbar bg="light" expand="lg">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
 			<Container>
 				<Navbar.Brand href="/">Coast2Coast</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
