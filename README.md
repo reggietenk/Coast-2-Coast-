@@ -1,89 +1,27 @@
-# COAST2COAST
+# COAST-2-COAST
 
 ## Description 
 
-Coast2Coast is a web application that allows users to access & use MongoDB, Mongoose an objecting modeling tool helps the user work in an asynchronous environment.The user has the ability to make GET, POST, PUT & DELETE request with the social network API app. 
-
-## Table of Contents 
+Coast-2-Coast is a app that utilizes mapbox API to search for any location on the map.The user can signup with a username, email and password, at that point the user is able to see a map. While logged in the user is able to put down markers on the map to indicate where they have been. The user would be able to leave a message about that location if they want. When done the user should be able to log out.
 
 
-* [Installation](#installation)
-* [Usage](#usage)
-* [Credits](#credits)
-* [License](#license)
-
-
-## Installation
-
-- Node.js is needed to run application
-- Install npm using command lines (npm install)
-- Install mongoose (npm install mongoose)
-- Install express (npm install express )
-- Install nodemon to keep server running to view live changes (npm install nodemon)
-
-
+Please checkout my deployed app! **[Deployed App](https://coast-2-coast.herokuapp.com/)**
 
 
 ## Usage 
 
+#### LogIn Page:
+![Log In](/assets/images/LogIn.jpg)
 
-![screenshot]()
+#### SignUp Page:
+![Sign Up](/assets/images/SignUp.jpg)
 
-
-
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Usage 
+#### Main Page:
+![Main In](/assets/images/Main.jpg)
 
 
-![screenshot](src/assets/images/port.png)
 
 ## Contribution
-- Daniel Sapione
-- Daniel Mendez
-- Reggie Tenkorang
-
-
-
-
-## Tests
-
-- No test were performed. 
+- Daniel Sapione  --- ![Daniel Sapione](https://github.com/dsapione)
+- Daniel Mendez  --- ![Daniel Mendez](https://github.com/DanProgramsIt)
+- Reggie Tenkorang  --- ![Reggie Tenkorang](https://github.com/reggietenk)
