@@ -30,7 +30,34 @@ code {
 .map-container {
   height: 900px;
 
+
   }
+
+  .footer {
+    position: fixed;
+    padding: 10px 10px 0px 10px;
+    bottom: 0;
+    width: 100%;
+    /* Height of the footer*/ 
+    height: 80px;
+    background: grey;
+    text-align: center;
+}
+
+.home-container {
+  padding: 5%;
+  height: 200px;
+  position: relative;
+  
+  
+ 
+}
+
+p {
+  /* Center horizontally*/
+  text-align: center;
+  font-size: 80px;
+}
 
 
   

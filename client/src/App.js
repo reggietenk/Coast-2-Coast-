@@ -1,16 +1,15 @@
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from "@apollo/client/link/context";
 import * as React from 'react'
-import Map from './components/Map';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import AppNavbar from './components/Navbar';
-// import { Nav } from 'react-bootstrap';
-// import 'mapbox-gl/dist/mapbox-gl.css';
 import './index.css' 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import NoMatch from './pages/NoMatch';
+import Footer from './components/Footer'
+import Home from './pages/Home';
 
 
 
@@ -42,11 +41,12 @@ function App() {
           <AppNavbar />
 
         <Route>
-					<Route exact path="/" component={Map} />
+					<Route exact path="/" component={Home} />
 					<Route exact path="/login" component={Login} /> 
 					<Route exact path="/signup" component={Signup} />
 					<Route component={NoMatch} />              
         </Route>
+        <Footer />
       </>
       </Router>
     </ApolloProvider>

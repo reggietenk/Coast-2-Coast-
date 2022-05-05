@@ -2,37 +2,23 @@
 
 ## Description 
 
-Coast2Coast is a web application that allows users to access & use MongoDB, Mongoose an objecting modeling tool helps the user work in an asynchronous environment.The user has the ability to make GET, POST, PUT & DELETE request with the social network API app. 
-
-## Table of Contents 
-
-
-* [Installation](#installation)
-* [Usage](#usage)
-* [Credits](#credits)
-* [License](#license)
-
-
-## Installation
-
-- Node.js is needed to run application
-- Install npm using command lines (npm install)
-- Install mongoose (npm install mongoose)
-- Install express (npm install express )
-- Install nodemon to keep server running to view live changes (npm install nodemon)
-
-
-
+Coast2Coast is a web application that allows users to access a map and search any specific location in the world.
 
 ## Usage 
 
 
-![screenshot]()
+![screenshot](client/src/assets/images/home.png)
+
+![screenshot](client/src/assets/images/login.png)
+
+![screenshot](client/src/assets/images/map.png)
 
 
 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
+
 
 ## Available Scripts
 
@@ -71,10 +57,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Usage 
 
-
-![screenshot](src/assets/images/port.png)
 
 ## Contribution
 - Daniel Sapione
