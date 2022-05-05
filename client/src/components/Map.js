@@ -22,7 +22,7 @@ const Map = () => {
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: 'mapbox://styles/mapbox/satellite-v9',
+      style: 'mapbox://styles/mapbox/streets-v11',
       center: [lng, lat],
       zoom: 0,
       scrollZoom: true,
@@ -62,8 +62,6 @@ const Map = () => {
       setLat(map.getCenter().lat.toFixed(4));
       setZoom(map.getZoom().toFixed(2));
     });
-
-
 
     // Clean up on unmount
     return () => map.remove();
