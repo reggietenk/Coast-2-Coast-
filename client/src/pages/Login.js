@@ -37,30 +37,34 @@ const Login = (props) => {
     <main className='flex-row justify-center mb-4'>
       <div className='col-12 col-md-6'>
         <div className='card'>
-          <h4 className='card-header'>Login</h4>
+          <h4 className='card-header text-center'>Login</h4>
           <div className='card-body'>
             <form onSubmit={handleFormSubmit}>
-              <input
-                className='form-input'
-                placeholder='Your email'
-                name='email'
-                type='email'
-                id='email'
-                value={formState.email}
-                onChange={handleChange}
-              />
-              <input
-                className='form-input'
-                placeholder='******'
-                name='password'
-                type='password'
-                id='password'
-                value={formState.password}
-                onChange={handleChange}
-              />
-              <button variant="primary" type='submit'>
-                Submit
-              </button>
+						<div className="row mb-3 col-sm-10">
+								<input
+									className='form-input'
+									placeholder='Your email'
+									name='email'
+									type='email'
+									id='email'
+									value={formState.email}
+									onChange={handleChange}
+								/>
+							</div>	
+							<div className="row mb-3 col-sm-10">
+								<input
+									className='form-input'
+									placeholder='******'
+									name='password'
+									type='password'
+									id='password'
+									value={formState.password}
+									onChange={handleChange}
+								/>
+							</div>
+							<div className="d-grid gap-2">
+								<button className="btn btn-outline-dark" variant="primary" type='submit'>Submit</button>
+							</div>
             </form>
 						{error && <div>Login failed</div>}
           </div>

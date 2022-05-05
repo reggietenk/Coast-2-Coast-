@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 // import { Marker } from 'mapbox-gl';
 import "mapbox-gl/dist/mapbox-gl.css"
-import ReactMapGL, { Marker, Popup } from "react-map-gl";
+// import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
