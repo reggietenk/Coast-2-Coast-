@@ -34,13 +34,13 @@ const Signup = () => {
 	};
 
   return (
-    <main className='flex-row justify-center mb-4'>
-      <div className='col-12 col-md-6'>
-        <div className='card'>
+    <main className='flex container'>
+      <div className='col-12'>
+        <div className='card mt-4'>
           <h4 className='card-header text-center'>Sign Up</h4>
           <div className='card-body'>
-            <form className="align-middle" onSubmit={handleFormSubmit}>
-							<div className="row mb-3 col-sm-10">
+            <form onSubmit={handleFormSubmit}>
+							<div className="d-grid mb-3">
 								<input
 									className='form-input'
 									placeholder='Your username'
@@ -51,7 +51,7 @@ const Signup = () => {
 									onChange={handleChange}
 								/>
 							</div>
-							<div className="row mb-3 col-sm-10">
+							<div className="d-grid mb-3">
 								<input
 									className='form-input'
 									placeholder='Your email'
@@ -62,7 +62,7 @@ const Signup = () => {
 									onChange={handleChange}
 								/>
 							</div>
-							<div className="row mb-3 col-sm-10">
+							<div className="d-grid mb-3">
 								<input
 									className='form-input'
 									placeholder='******'

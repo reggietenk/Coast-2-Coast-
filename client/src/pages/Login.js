@@ -34,13 +34,13 @@ const Login = (props) => {
 	};
 
   return (
-    <main className='flex-row justify-center mb-4'>
-      <div className='col-12 col-md-6'>
-        <div className='card'>
+    <main className='container flex'>
+      <div className='col-12'>
+        <div className='card mt-4'>
           <h4 className='card-header text-center'>Login</h4>
           <div className='card-body'>
             <form onSubmit={handleFormSubmit}>
-						<div className="row mb-3 col-sm-10">
+						<div className="d-grid mb-3">
 								<input
 									className='form-input'
 									placeholder='Your email'
@@ -51,7 +51,7 @@ const Login = (props) => {
 									onChange={handleChange}
 								/>
 							</div>	
-							<div className="row mb-3 col-sm-10">
+							<div className="d-grid mb-3">
 								<input
 									className='form-input'
 									placeholder='******'
