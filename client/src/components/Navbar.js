@@ -20,16 +20,14 @@ const AppNavbar = () => {
 						<nav className="text-center">
 							{Auth.loggedIn() ? (
 								<>
-									<a href="/" onClick={logout}>
+									<Nav.Link href="/" onClick={logout}>
 										Logout
-									</a>
+									</Nav.Link>
 								</>
 							) : (
 								<>
-									<div>
-										<Nav.Link href="/Signup">Signup</Nav.Link>
-										<Nav.Link href="/Login">Login</Nav.Link>
-									</div>
+									<Nav.Link href="/Signup">Signup</Nav.Link>
+									<Nav.Link href="/Login">Login</Nav.Link>									
 								</>
 							)}
 						</nav>
