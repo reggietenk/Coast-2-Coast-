@@ -6,13 +6,7 @@
 Coast-2-Coast is a app that utilizes mapbox API to search for any location on the map.The user can signup with a username, email and password, at that point the user is able to see a map. While logged in the user is able to put down markers on the map to indicate where they have been. The user would be able to leave a message about that location if they want. When done the user should be able to log out.
 
 
-![screenshot](client/src/assets/images/home.png)
-
-
 Please checkout my deployed app! **[Deployed App](https://coast-2-coast.herokuapp.com/)**
-
-
-![screenshot](client/src/assets/images/map.png)
 
 
 #### LogIn Page:
